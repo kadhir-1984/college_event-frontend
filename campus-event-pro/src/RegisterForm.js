@@ -29,7 +29,7 @@ const RegisterForm = () => {
       <Link to="/" className="back-link">← Back to Events</Link>
       <h2>📝 Register for Event #{id}</h2>
       
-      <form onSubmit={handleSubmit} className="register-form">
+      <form onSubmit={handleSubmit} className="registerform">
         <label htmlFor="name">Name</label>
         <input
           id="name"

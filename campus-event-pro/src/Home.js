@@ -43,7 +43,7 @@ const Home = () => {
 
       <div className="container">
         <h1 className="heading">📅 Upcoming Events</h1>
-        <p className="subheading">Don’t miss out on the latest events at your college!</p>
+        <p className="subheading">Don’t miss out the latest events at your college!</p>
 
         <div className="filter-buttons">
           {categories.map(category => (
