@@ -1,4 +1,4 @@
-.event-detail-container {
+.event-container {
   max-width: 800px;
   margin: 40px auto;
   padding: 20px;
@@ -11,7 +11,7 @@
   font-size: 14px;
 }
 
-.event-detail-card {
+.event-card {
   background: #fff;
   border: 1px solid #e1e4e8;
   border-radius: 12px;
@@ -19,7 +19,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.08);
 }
 
-.event-detail-card h1 {
+.event-card h1 {
   font-size: 28px;
   color: #2c3e50;
 }
@@ -36,11 +36,11 @@
   line-height: 1.6;
 }
 
-.event-detail-card ul {
+.event-card ul {
   padding-left: 20px;
 }
 
-.event-detail-card li {
+.event-card li {
   font-size: 15px;
   color: #555;
 } 

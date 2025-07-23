@@ -51,9 +51,9 @@ const EventDetail = () => {
   }
 
   return (
-    <div className="event-detail-container">
+    <div className="event-container">
       <Link to="/" className="back-link">← Back to Events</Link>
-      <div className="event-detail-card">
+      <div className="event-card">
         <h1>{event.title}</h1>
         <p className="event-meta">📆 {formatDate(event.date)} | 📍 {event.location} | 🏷 {event.category}</p>
         <p className="event-description">{event.description}</p>
