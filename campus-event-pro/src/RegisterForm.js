@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
 import './RegisterForm.css';
 
 const RegisterForm = () => {
-  const { id } = useParams(); // Get event ID from the URL
+  const { id } = useParams(); // Event ID from URL
 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     department: ''
   });
+
+  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({ 
@@ -18,10 +21,21 @@ const RegisterForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`✅ Registered for Event ID: ${id}\nName: ${formData.name}\nEmail: ${formData.email}`);
-    setFormData({ name: '', email: '', department: '' });
+
+    try {
+      const response = await axios.post('http://localhost:5000/register', {
+        ...formData,
+        eventId: id  // Include event ID in backend
+      });
+
+      setMessage(`✅ ${response.data.message}`);
+      setFormData({ name: '', email: '', department: '' });
+    } catch (error) {
+      console.error(error);
+      setMessage('❌ Registration failed. Please try again.');
+    }
   };
 
   return (
@@ -65,6 +79,8 @@ const RegisterForm = () => {
 
         <button type="submit">✅ Submit Registration</button>
       </form>
+
+      {message && <p className="message">{message}</p>}
     </div>
   );
 };
