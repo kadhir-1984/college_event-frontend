@@ -15,6 +15,7 @@ app.post('/register', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
+
 });
 app.get('/', (req, res) => {
   res.send('🎉 Backend server is running!');

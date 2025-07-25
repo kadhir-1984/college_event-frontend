@@ -34,7 +34,7 @@ const RegisterForm = () => {
       setFormData({ name: '', email: '', department: '' });
     } catch (error) {
       console.error(error);
-      setMessage('❌ Registration failed. Please try again.');
+      setMessage('❌ Registration failed. Please try again ');
     }
   };
 
