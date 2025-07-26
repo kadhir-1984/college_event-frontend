@@ -80,7 +80,8 @@ const RegisterForm = () => {
         <button type="submit">✅ Submit Registration</button>
       </form>
 
-      {message && <p className="message">{message}</p>}
+      <p className={`message ${message.includes('✅') ? 'success' : 'error'}`}>{message}</p>
+
     </div>
   );
 };
