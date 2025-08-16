@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './AdminLogin.css';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData(prev => ({
@@ -15,18 +16,23 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Username: ${formData.username} | Password: ${formData.password}`);
-    // Later you’ll connect this to backend
+
+    // Hardcoded admin credentials for now
+    if (formData.username === 'admin' && formData.password === 'admin123') {
+      navigate('/admin/dashboard'); // ✅ redirect
+    } else {
+      setError('❌ Invalid username or password');
+    }
   };
 
   return (
     <div className="admin-container">
-       <div className="back-container">
-         <Link to="/" className="back-to-events">← Back to Events</Link>
-       </div>
-
+      <div className="back-container">
+        <Link to="/" className="back-to-events">← Back to Events</Link>
+      </div>
 
       <h2 className="admin-title">🔐 Admin Login</h2>
+
       <form onSubmit={handleSubmit} className="admin-form">
         <input
           type="text"
@@ -46,6 +52,8 @@ const AdminLogin = () => {
         />
         <button type="submit">Login</button>
       </form>
+
+      {error && <p className="error-text">{error}</p>}
     </div>
   );
 };

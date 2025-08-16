@@ -4,6 +4,7 @@ import Home from './Home';
 import EventDetail from './EventDetail';
 import RegisterForm from './RegisterForm'; 
 import AdminLogin from './AdminLogin';
+import AdminDashboard from "./AdminDashboard";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/event/:id" element={<EventDetail />} />
         <Route path="/register/:id" element={<RegisterForm />} />
         <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

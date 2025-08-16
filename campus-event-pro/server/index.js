@@ -2,16 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
+const connectDB = require('./db'); 
 const PORT = 5000;
 
 // ✅ Enable CORS and JSON parsing
 app.use(cors());
 app.use(express.json());
 
-// ✅ MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1:27017/campus-events')
-  .then(() => console.log('✅ MongoDB Connected'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
+connectDB();
 
 // ✅ Mongoose Schema for Registration
 const registrationSchema = new mongoose.Schema({
@@ -19,7 +17,7 @@ const registrationSchema = new mongoose.Schema({
   email: String,
   department: String,
   eventId: String,
-});
+} , { timestamps: true });
 
 const Registration = mongoose.model('Registration', registrationSchema);
 
@@ -53,7 +51,7 @@ app.post('/register', async (req, res) => {
     const newRegistration = new Registration({ name, email, department, eventId });
     await newRegistration.save();
     console.log('✅ New Registration Saved:', { name, email, department, eventId });
-    res.status(201).json({ message: 'Registration saved to MongoDB' });
+    res.status(201).json({ message: 'registration saved successfully' });
   } catch (error) {
     console.error('❌ Error saving registration:', error);
     res.status(500).json({ error: 'Failed to save registration' });
@@ -74,6 +72,25 @@ app.get('/events/:id', (req, res) => {
     res.status(404).json({ message: 'Event not found' });
   }
 });
+
+
+// Get all registrations (Admin only)
+// Fetch all registrations
+app.get('/registrations', async (req, res) => {
+  try {
+    const registrations = await Registration.find();
+    res.json(registrations);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch registrations' });
+  }
+});
+
+// Delete registration
+app.delete('/registrations/:id', async (req, res) => {
+  await Registration.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Registration deleted' });
+});
+
 
 // ✅ Start the server
 app.listen(PORT, () => {

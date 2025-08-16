@@ -14,6 +14,7 @@ const RegisterForm = () => {
 
   const [message, setMessage] = useState('');
 
+  // Handle input change
   const handleChange = (e) => {
     setFormData({ 
       ...formData, 
@@ -21,20 +22,21 @@ const RegisterForm = () => {
     });
   };
 
+  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post('http://localhost:5000/register', {
         ...formData,
-        eventId: id  // Include event ID in backend
+        eventId: id  // Attach event ID
       });
 
       setMessage(`✅ ${response.data.message}`);
-      setFormData({ name: '', email: '', department: '' });
+      setFormData({ name: '', email: '', department: '' }); // Reset form
     } catch (error) {
       console.error(error);
-      setMessage('❌ Registration failed. Please try again ');
+      setMessage('❌ Registration failed. Please try again.');
     }
   };
 
@@ -44,6 +46,7 @@ const RegisterForm = () => {
       <h2>📝 Register for Event #{id}</h2>
       
       <form onSubmit={handleSubmit} className="registerform">
+
         <label htmlFor="name">Name</label>
         <input
           id="name"
@@ -71,7 +74,7 @@ const RegisterForm = () => {
           id="department"
           type="text"
           name="department"
-          placeholder="🏫 Department"
+          placeholder="🏫 Your Department"
           value={formData.department}
           onChange={handleChange}
           required
@@ -80,8 +83,12 @@ const RegisterForm = () => {
         <button type="submit">✅ Submit Registration</button>
       </form>
 
-      <p className={`message ${message.includes('✅') ? 'success' : 'error'}`}>{message}</p>
-
+      {/* Success or Error Message */}
+      {message && (
+        <p className={`message ${message.includes('✅') ? 'success' : 'error'}`}>
+          {message}
+        </p>
+      )}
     </div>
   );
 };
